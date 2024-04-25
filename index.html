@@ -47,7 +47,37 @@
 <body>
 
 <img id="background" src="background.jpg">
-<h2>Preguiça de terminar</h2>
+<!-- Ace Editor CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.33.1/ace.js"></script>
+</head>
+<body>
+
+<h2>Editor de Assembly</h2>
+<div id="assemblyEditor" style="height: 250px; width: 700px;">MOV AX, 1</div>
+
+<script>
+    // Configuração do editor de Assembly
+    var assemblyEditor = ace.edit("assemblyEditor");
+    assemblyEditor.setTheme("ace/theme/cloud9_night_low_color");
+    assemblyEditor.session.setMode("ace/mode/assembly_x86");
+    
+    assemblyEditor.setValue(`section .text
+global _start
+
+_start:
+	; Inicialização
+  mov eax, 5      ; Coloca o valor 5 no registrador EAX
+  mov ebx, 10     ; Coloca o valor 10 no registrador EBX
+
+  ; Soma os valores em EAX e EBX
+  add eax, ebx
+
+  ; Termina o programa
+  mov eax, 1      ; Código de saída
+  int 0x80       ; Chamada de sistema
+`);
+
+</script>
 
 <div class="black-box" onclick="playAudio()">Clique aqui</div>
 
