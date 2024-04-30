@@ -3,60 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="stylize.css">
+
     <title>Tiago Xeke</title>
-    <style>
-        body{
-            position: absolute;
-            top: 0;left: 0;
-            width: 100%;height: 100%;
-
-            background-color: #FFFFFF;
-
-            margin:0px;padding:0px;
-
-            box-sizing:border-box;
-        }
-
-        #background{
-            position: relative;
-            top: 0;left: 0;
-            width: 100%;height: 450px;
-
-            object-fit:cover;
-
-            object-position:20% 10%;
-        }
-        /* Estilo para a div */
-        .black-box {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            color: white;
-            text-align: center;
-            line-height: 100vh; /* Centralizar verticalmente o texto */
-            font-size:40px;
-            cursor: pointer;
-            opacity: 1;
-            transition: opacity 1s ease-in-out;
-
-		z-index:10;
-        }
-    </style>
 </head>
 <body>
 
-<img id="background" src="background.jpg">
-<!-- Ace Editor CDN -->
+<img id="background" src="background.png">
+<h1 class="pageTitle">Xekena</h1>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.33.1/ace.js"></script>
-</head>
-<body>
 
-<h2>Editor de Assembly</h2>
-<div id="assemblyEditor" style="width: 100%;height:auto;min-height: 250px;"></div>
-<div style="width: 100%;height:300px;margin-top:50px;">Acabou ...</div>
+<div id="container">
+    <h2>Citações</h2>
+    <div class="sectionText">- Mestre eu te saudo!<br>- Amigo a que vieste? O que buscam?<br>- Jesus o nazareno</div>
+    <div class="sectionText">Enquanto não chega o apocalipse continua os atos</div>
+    <div class="sectionText">Está breve o retorno de Jesus o rei dos reis, em breve os reinos deste mundo seguirão as suas leis</div>
+
+    <h2>Editor de Assembly</h2>
+    <div id="assemblyEditor" style="width:100%;height:auto;min-height:250px;border-radius:4px"></div>
+</div>
 
 <script>
     // Configuração do editor de Assembly
@@ -64,25 +30,26 @@
     assemblyEditor.setTheme("ace/theme/cloud9_night_low_color");
     assemblyEditor.session.setMode("ace/mode/assembly_x86");
     
-    assemblyEditor.setValue(`section .text
+    assemblyEditor.setValue(`
+section .text
 global _start
 
 _start:
-	; Inicialização
-  mov eax, 5      ; Coloca o valor 5 no registrador EAX
-  mov ebx, 10     ; Coloca o valor 10 no registrador EBX
+    ; Inicialização
+    mov eax, 5      ; Coloca o valor 5 no registrador EAX
+    mov ebx, 10     ; Coloca o valor 10 no registrador EBX
 
-  ; Soma os valores em EAX e EBX
-  add eax, ebx
+    ; Soma os valores em EAX e EBX
+    add eax, ebx
 
-  ; Termina o programa
-  mov eax, 1      ; Código de saída
-  int 0x80       ; Chamada de sistema
-`);
+    ; Termina o programa
+    mov eax, 1      ; Código de saída
+    int 0x80        ; Chamada de sistema
+`,1);
 
 </script>
 
-<div class="black-box" onclick="playAudio()">Clique aqui</div>
+<!-- <div class="black-box" onclick="playAudio()">Clique aqui</div> -->
 
 <audio id="myAudio">
     <source src="music.mp3" type="audio/mpeg">
