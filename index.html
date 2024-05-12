@@ -10,51 +10,16 @@
 </head>
 <body>
 
-<img id="background" src="background.png">
-<h1 class="pageTitle">Xekena</h1>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.33.1/ace.js"></script>
+<img id="background" src="background.jpg">
+<h1 class="pageTitle">Xeke, xe vertã conóe</h1>
 
 <div id="container">
-    <h2>Citações</h2>
-    <div class="sectionText">- Mestre eu te saudo!<br>- Amigo a que vieste? O que buscam?<br>- Jesus o nazareno</div>
-    <div class="sectionText">Enquanto não chega o apocalipse continua os atos</div>
-    <div class="sectionText">Está breve o retorno de Jesus o rei dos reis, em breve os reinos deste mundo seguirão as suas leis</div>
+    <div class="sectionText">Omne vivum ex vivo<br>καὶ γνώσεσθε τὴν ἀλήθειαν καὶ ἡ ἀλήθεια ἐλευθερώσει ὑμᾶς</div>
 
-    <h2>Editor de Assembly</h2>
-    <div id="assemblyEditor" style="width:100%;height:auto;min-height:250px;border-radius:4px"></div>
+    <h2>Livros que li:</h2>
+    <img src="01.jpg" class="book"/>
+    <img src="02.jpg" class="book"/>
 </div>
-
-<script>
-    // Configuração do editor de Assembly
-    var assemblyEditor = ace.edit("assemblyEditor");
-    assemblyEditor.setTheme("ace/theme/cloud9_night_low_color");
-    assemblyEditor.session.setMode("ace/mode/assembly_x86");
-    
-    assemblyEditor.setValue(`
-section .text
-global _start
-
-_start:
-    ; Inicialização
-    mov eax, 5      ; Coloca o valor 5 no registrador EAX
-    mov ebx, 10     ; Coloca o valor 10 no registrador EBX
-
-    ; Soma os valores em EAX e EBX
-    add eax, ebx
-
-    ; Termina o programa
-    mov eax, 1      ; Código de saída
-    int 0x80        ; Chamada de sistema
-`,1);
-
-</script>
-
-<!-- <div class="black-box" onclick="playAudio()">Clique aqui</div> -->
-
-<audio id="myAudio">
-    <source src="music.mp3" type="audio/mpeg">
-    Seu navegador não suporta a tag audio.
-</audio>
 
 <script>
     // Obtendo a referência do elemento audio

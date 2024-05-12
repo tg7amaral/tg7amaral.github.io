@@ -18,13 +18,20 @@ body{
 #background{
     position:relative;
 
-    width:100%;height:350px;
+    width:100%;height:300px;
 
     top:0px;left:0px;
     margin:0px 0px 10px 0px;padding:0px;
 
     object-fit:cover;
-    object-position:70% 0%;
+    object-position:60% 0%;
+}
+
+.book{
+    width:130px;height:auto;
+    margin:0px 5px 0px 0px;
+
+    vertical-align:top;
 }
 
 #container{
@@ -46,11 +53,11 @@ body{
 .pageTitle{
     position:absolute;
     
-    width:70%;height:35px;
+    width:60%;height:30px;
 
     background:#000000B0;
 
-    top:15px;left:15px;
+    top:10px;left:10px;
     margin:0px;padding:0px 0px 0px 10px;
 
     box-sizing:border-box;
@@ -58,8 +65,8 @@ body{
 
     color:#FFFFFF;
     font-family:Arial;
-    line-height:35px;
-    font-size:15px;
+    line-height:30px;
+    font-size:14px;
 }
 
 .black-box {
