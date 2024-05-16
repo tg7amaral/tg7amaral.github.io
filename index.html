@@ -12,7 +12,6 @@
 
 <div id="shadow"></div>
 <img id="background" src="background.gif">
-<img id="backgroundSlow" src="backgroundSlow.gif">
 
 <h1 class="pageTitle" id="pageTitle">Xeke, hu ferohades</h1>
 
@@ -118,13 +117,11 @@ function lolz () {
     document.getElementById('container').classList.add("blink");
     document.getElementById('shadow').classList.add("blink");
     document.getElementById('background').classList.add("bright");
-    document.getElementById('backgroundSlow').style.display = "none";
   }
   if (this.currentTime > timeEndPoint || this.currentTime < timePoint) {
     document.getElementById('container').classList.remove("blink");
     document.getElementById('shadow').classList.remove("blink");
     document.getElementById('background').classList.remove("bright");
-    document.getElementById('backgroundSlow').style.display = "block";
   }
 }
 </script>
