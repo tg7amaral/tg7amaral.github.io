@@ -10,8 +10,12 @@
 </head>
 <body>
 
+<div id="shadow"></div>
 <img id="background" src="background.gif">
+<img id="backgroundSlow" src="backgroundSlow.gif">
+
 <h1 class="pageTitle" id="pageTitle">Xeke, hu ferohades</h1>
+
 <div class="audio-player">
   <audio id="music" src="music.webm#t=00:01:48"></audio>
   <div class="controls">
@@ -40,6 +44,7 @@
 </div>
 
 <script>
+
     const playerButton = document.querySelector('.player-button'),
       audio = document.querySelector('audio'),
       timeline = document.querySelector('.timeline'),
@@ -108,17 +113,18 @@ var timePoint = 121.5;
 var timeEndPoint = 163;
 
 function lolz () {
+
   if (this.currentTime > timePoint) {
-    document.body.classList.add("blink");
     document.getElementById('container').classList.add("blink");
-    document.getElementById('pageTitle').classList.add("blink");
+    document.getElementById('shadow').classList.add("blink");
     document.getElementById('background').classList.add("bright");
+    document.getElementById('backgroundSlow').style.display = "none";
   }
   if (this.currentTime > timeEndPoint || this.currentTime < timePoint) {
-    document.body.classList.remove("blink");
     document.getElementById('container').classList.remove("blink");
-    document.getElementById('pageTitle').classList.remove("blink");
+    document.getElementById('shadow').classList.remove("blink");
     document.getElementById('background').classList.remove("bright");
+    document.getElementById('backgroundSlow').style.display = "block";
   }
 }
 </script>
