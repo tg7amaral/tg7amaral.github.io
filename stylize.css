@@ -39,6 +39,18 @@ body{
     }
 }
 
+@keyframes black {
+    0% {
+        filter:saturate(1.0) brightness(1.0);
+    }
+    50% {
+        filter:saturate(1.5) brightness(0);
+    }
+    100% {
+        filter:saturate(1.0) brightness(1.0);
+    }
+}
+
 #background{
     position:relative;
 
@@ -66,9 +78,25 @@ body{
     z-index:2;
 }
 
+#books {
+    position: relative;
+    width: 100%;
+    height: auto;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    justify-items: center;
+    gap: 10px; /* Ajuste conforme necessário para o espaçamento entre as colunas */
+}
+
 .book{
-    width:calc(50% - 5px);height:auto;
-    margin:0px 5px 5px 0px;
+    width:auto;height:210px;
+    margin:0px;
 
     vertical-align:top;
 }
@@ -78,6 +106,9 @@ body{
 }
 .bright{
   animation: bright 0.3s infinite alternate;
+}
+.black{
+  animation: black 0.2s infinite alternate;
 }
 
 #container{

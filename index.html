@@ -13,7 +13,7 @@
 <div id="shadow"></div>
 <img id="background" src="background.gif">
 
-<h1 class="pageTitle" id="pageTitle">Xeke, hu ferohades</h1>
+<h1 class="pageTitle" id="pageTitle">Xeke, ez ferohades</h1>
 
 <div class="audio-player">
   <audio id="music" src="music.webm#t=00:01:48"></audio>
@@ -36,10 +36,16 @@
     <div class="sectionText">Omne vivum ex vivo<br>καὶ γνώσεσθε τὴν ἀλήθειαν καὶ ἡ ἀλήθεια ἐλευθερώσει ὑμᾶς</div>
 
     <h2>Livros que li:</h2>
-    <img src="01.jpg" class="book"/>
-    <img src="02.jpg" class="book"/>
-    <img src="03.jpg" class="book"/>
-    <img src="04.jpg" class="book"/>
+    <div id="books">
+      <img src="02.jpg" class="book"/>
+      <img src="04.jpg" class="book"/>
+      <img src="01.jpg" class="book"/>
+      <img src="06.jpg" class="book"/>
+      <img src="07.jpg" class="book"/>
+      <img src="08.jpg" class="book"/>
+      <img src="03.jpg" class="book"/>
+      <img src="05.jpg" class="book"/>
+    </div>
 </div>
 
 <script>
@@ -111,6 +117,9 @@ document.getElementById('music').addEventListener('timeupdate', lolz)
 var timePoint = 121.5;
 var timeEndPoint = 163;
 
+var timePoint2 = 119.8;
+var timeEndPoint2 = 121;
+
 function lolz () {
 
   if (this.currentTime > timePoint) {
@@ -122,6 +131,13 @@ function lolz () {
     document.getElementById('container').classList.remove("blink");
     document.getElementById('shadow').classList.remove("blink");
     document.getElementById('background').classList.remove("bright");
+  }
+
+  if (this.currentTime > timePoint2) {
+    document.getElementById('background').classList.add("black");
+  }
+  if (this.currentTime > timeEndPoint2 || this.currentTime < timePoint2) {
+    document.getElementById('background').classList.remove("black");
   }
 }
 </script>
