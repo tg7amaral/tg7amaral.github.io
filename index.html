@@ -11,21 +11,21 @@
 <body>
 
 <div id="shadow"></div>
-<img id="background" src="background.gif">
+<img id="background" src="background.jpg">
 
 <h1 class="pageTitle" id="pageTitle">Xeke, ez ferohades</h1>
 
 <div class="audio-player">
-  <audio id="music" src="music.webm#t=00:01:48"></audio>
+  <audio id="music" src="music.mp3#t=00:02:40"></audio>
   <div class="controls">
     <button class="player-button">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#5000C0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#DEDEDE">
   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
 </svg>
     </button>
     <input type="range" class="timeline" max="100" value="0">
     <button class="sound-button">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#5000C0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#DEDEDE">
   <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" />
 </svg>
     </button>
@@ -33,16 +33,14 @@
 </div>
 
 <div id="container">
-    <div class="sectionText">Omne vivum ex vivo<br>καὶ γνώσεσθε τὴν ἀλήθειαν καὶ ἡ ἀλήθεια ἐλευθερώσει ὑμᾶς</div>
+    <div class="sectionText">Porque <b>Deus não nos destinou para a ira</b>, mas para recebermos a salvação por meio de nosso Senhor <b>Jesus Cristo</b>. Ele morreu por nós para que, quer estejamos acordados quer dormindo, vivamos unidos a ele. Exortamos vocês, irmãos, a que <b>advirtam os ociosos</b>, <b>confortem os desanimados</b>, <b>auxiliem os fracos</b>, <b>sejam pacientes para com todos</b>. Tenham cuidado para que <b>ninguém retribua o mal com o mal</b>, mas <b>sejam sempre bondosos</b> uns para com os outros e para com todos. Alegrem-se sempre. <b>Orem continuamente</b>. <b>Dêem graças em todas as circunstâncias</b>, pois esta é a vontade de <b>Deus</b> para vocês em <b>Cristo Jesus</b>. <b>Não apaguem o Espírito</b>. <b>Não tratem com desprezo as profecias</b>, Examinem tudo, <b>fiquem com o que é bom e evitem todo tipo de mal</b><br>1 Tessalonicenses 5:9;10;14-22<br><br>Pois é <b>Deus</b> quem efetua em vocês tanto o querer quanto o realizar, de acordo com a boa vontade dele. Façam tudo sem queixas nem discussões, para que venham a tornar-se puros e <b>irrepreensíveis</b>, filhos de <b>Deus</b> inculpáveis no meio de uma geração corrompida e depravada, na qual vocês brilham como estrelas no universo<br>Filipenses 2:13-15<br><br>Orem no Espírito em <b>todos os momentos e ocasiões</b>. Permaneçam atentos e sejam persistentes em suas orações por todo o povo santo<br>Efésios 6:18<br><br>Então <b>Jesus</b> foi, levando consigo Pedro e os dois filhos de Zebedeu. Aí ele começou a sentir uma grande tristeza e aflição e disse a eles: "A tristeza que estou sentindo é tão grande, que é capaz de me matar. Fiquem aqui vigiando comigo". Ele foi um pouco mais adiante, ajoelhou-se, encostou o rosto no chão e orou: "Meu Pai, se é possível, afasta de mim este cálice de sofrimento! Porém que <b>não seja feito o que eu quero, mas o que tu queres</b>"<br>Mateus 26:37-39<br><br>Omne vivum ex vivo</div>
 
-    <h2>Livros que li:</h2>
-    <div id="books">
+    <h2 style="display:none">Livros que li:</h2>
+    <div id="books" style="display:none">
       <img src="02.jpg" class="book"/>
       <img src="04.jpg" class="book"/>
       <img src="01.jpg" class="book"/>
       <img src="06.jpg" class="book"/>
-      <img src="07.jpg" class="book"/>
-      <img src="08.jpg" class="book"/>
       <img src="03.jpg" class="book"/>
       <img src="05.jpg" class="book"/>
     </div>
@@ -55,21 +53,21 @@
       timeline = document.querySelector('.timeline'),
       soundButton = document.querySelector('.sound-button'),
       playIcon = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#5000C0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#DEDEDE">
     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
   </svg>
       `,
       pauseIcon = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#5000C0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#DEDEDE">
   <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
 </svg>
       `,
       soundIcon = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#5000C0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#DEDEDE">
   <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" />
 </svg>`,
       muteIcon = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#5000C0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#DEDEDE">
   <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clip-rule="evenodd" />
 </svg>`;
 
@@ -112,34 +110,6 @@ function toggleSound () {
 }
 
 soundButton.addEventListener('click', toggleSound);
-
-document.getElementById('music').addEventListener('timeupdate', lolz)
-var timePoint = 121.5;
-var timeEndPoint = 163;
-
-var timePoint2 = 119.8;
-var timeEndPoint2 = 121;
-
-function lolz () {
-
-  if (this.currentTime > timePoint) {
-    document.getElementById('container').classList.add("blink");
-    document.getElementById('shadow').classList.add("blink");
-    document.getElementById('background').classList.add("bright");
-  }
-  if (this.currentTime > timeEndPoint || this.currentTime < timePoint) {
-    document.getElementById('container').classList.remove("blink");
-    document.getElementById('shadow').classList.remove("blink");
-    document.getElementById('background').classList.remove("bright");
-  }
-
-  if (this.currentTime > timePoint2) {
-    document.getElementById('background').classList.add("black");
-  }
-  if (this.currentTime > timeEndPoint2 || this.currentTime < timePoint2) {
-    document.getElementById('background').classList.remove("black");
-  }
-}
 </script>
 
 </body>

@@ -62,7 +62,7 @@ body{
 /*    filter:contrast(1.1);*/
 
     object-fit:cover;
-    object-position:40% 0%;
+    object-position:0% 50%;
 
     z-index:1;
 }
@@ -87,16 +87,16 @@ body{
     margin: 0px;
     padding: 0px;
 
-    display: grid;
+    /*display: grid;
     grid-template-columns: repeat(2, max-content);
     justify-content: space-between;
     justify-items: center;
-    gap: 10px; /* Ajuste conforme necessário para o espaçamento entre as colunas */
+    gap: 10px; /* Ajuste conforme necessário para o espaçamento entre as colunas */*/
 }
 
 .book{
-    width:auto;height:210px;
-    margin:0px;
+    width:50%;height:auto;
+    margin:0px 0px 15px 0px;
 
     vertical-align:top;
 }
@@ -122,8 +122,8 @@ body{
     margin:0px;padding:10px 10px 80px 10px;
 
     box-sizing:border-box;
+    font-family:monospace;
     color:#FFFFFF;
-    font-size:0px;
 
     overflow:scroll;
 
@@ -157,7 +157,8 @@ body{
     margin:0px 0px 20px 0px;
 
     color:#FFFFFF;
-    font-size:16px;
+    font-size:12px;
+    font-family:monospace;
 }
 
 h2{
@@ -212,7 +213,7 @@ h2{
   background-color: #e5e5e5;
   border-radius: 5px;
   background-size: 0% 100%;
-  background-image: linear-gradient(#5000C0, #5000C0);
+  background-image: linear-gradient(#101010,#101010);
   background-repeat: no-repeat;
   margin-right: var(--space);
 }
