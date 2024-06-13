@@ -62,7 +62,7 @@ body{
 /*    filter:contrast(1.1);*/
 
     object-fit:cover;
-    object-position:0% 50%;
+    object-position:0% 35%;
 
     z-index:1;
 }
@@ -157,6 +157,7 @@ body{
     margin:0px 0px 20px 0px;
 
     color:#FFFFFF;
+    line-height:16px;
     font-size:12px;
     font-family:monospace;
 }
