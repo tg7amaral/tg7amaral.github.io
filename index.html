@@ -26,15 +26,19 @@
         </linearGradient>
       </defs>
 
-      <circle cx="20%" cy="20%" r="10%" fill="url(#gradient01)" fill-opacity="0.5" filter="url(#blurFilter)"></circle>
-      <circle cx="75%" cy="100%" r="15%" fill="url(#gradient02)" fill-opacity="0.5" filter="url(#blurFilter)"></circle>
+      <circle cx="0%" cy="30%" r="30%" fill="url(#gradient01)" fill-opacity="0.5" filter="url(#blurFilter)">
+        <animate attributeName="cy" values="30;50;30" keyTimes="0;0.7;1" dur="7s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="100%" cy="50%" r="30%" fill="url(#gradient02)" fill-opacity="0.5" filter="url(#blurFilter)">
+        <animate attributeName="cy" values="50;70;50" keyTimes="0;0.7;1" dur="10s" repeatCount="indefinite"/>
+      </circle>
     </svg>
     <section class="mainContainer">
       <img class="bibleIcon" id="Bible" src="Bible.png">
       <h1>"Não vos inquieteis, pois, pelo dia de amanhã, porque o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu mal"</h1>
       <p class="bibleText">Mateus 6:34</p>
 
-      <p class="anotherText">Se você for programador, por favor coloque uma estrela em algum repositório meu :) <a href="https://github.com/tiago-xeke" target="_blank"><img src="github.png" class="textImage"/></a></p>
+      <p class="anotherText">Se você for programador, por favor coloque uma estrela em algum repositório meu <a href="https://github.com/tiago-xeke" target="_blank"><img src="github.png" class="textImage"/></a> :)</p>
     </section>
 
     <script>
