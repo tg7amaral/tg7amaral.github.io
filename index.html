@@ -1,85 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <link rel="stylesheet" type="text/css" href="stylize.css">
+   <link rel="stylesheet" href="stylize.css">
 
-  <title>Tiago Xeke</title>
+   <title>(Nome)</title>
 </head>
-  <body>
-    <svg class="secundaryContainer" viewBox="0 0 100 100">
-      <defs>
-        <filter id="blurFilter">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="0.5"/>
-        </filter>
+<body>
+   <section class="page">
+      <header>
+         <h2>(Nome)</h2>
 
-        <linearGradient id="gradient01" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   style="stop-color:#0040FF;stop-opacity:1"/>
-          <stop offset="100%" style="stop-color:#00FF70;stop-opacity:1"/>
-        </linearGradient>
+         <div class="headerButtonsContainer">
+            <button class="headerButton">...</button>
+            <button class="headerButton">...</button>
+            <button class="headerButton">...</button>
+         </div>
 
-        <linearGradient id="gradient02" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   style="stop-color:#FF0040;stop-opacity:1"/>
-          <stop offset="100%" style="stop-color:#B000FF;stop-opacity:1"/>
-        </linearGradient>
-      </defs>
+         <p class="headerEnd">...</p>
+      </header>
 
-      <circle cx="0%" cy="30%" r="30%" fill="url(#gradient01)" fill-opacity="0.5" filter="url(#blurFilter)">
-        <animate attributeName="cy" values="30;50;30" keyTimes="0;0.7;1" dur="7s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="100%" cy="50%" r="30%" fill="url(#gradient02)" fill-opacity="0.5" filter="url(#blurFilter)">
-        <animate attributeName="cy" values="50;70;50" keyTimes="0;0.7;1" dur="10s" repeatCount="indefinite"/>
-      </circle>
-    </svg>
-    <section class="mainContainer">
-      <img class="bibleIcon" id="Bible" src="Bible.png">
-      <h1>"Não vos inquieteis, pois, pelo dia de amanhã, porque o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu mal"</h1>
-      <p class="bibleText">Mateus 6:34</p>
+      <section class="heroSection">
+         <section class="heroSectionLeft">
+            <img src="public/Github.png" class="heroIcon">
+            <img src="public/Instagram.png" class="heroIcon heroLastIcon">
 
-      <p class="anotherText">Se você for programador, por favor coloque uma estrela em algum repositório meu <a href="https://github.com/tiago-xeke" target="_blank"><img src="github.png" class="textImage"/></a> :)</p>
+            <h1 class="heroTitle">(Nome)</h1>
+            <p class="heroText">Aprendi a programar com 10 anos e, desde então, venho estudando muito ciência da computação. Com 14 anos, percebi que era da minha natureza gostar de estudar e comecei a me aprofundar em várias matérias, como matemática, por exemplo</p>
 
-      <a href="pages/index01.html">Página 01</a>
-    </section>
+            <button class="heroButton">Botão primário</button>
+            <button class="heroButton heroSecundaryButton">Botão secundário</button>
+         </section>
+      </section>
 
-    <script>
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      <hr class="sectionDivider">
 
-      function playBell() {
-        const now = audioCtx.currentTime;
+      <h3 class="sectionTitle">Livros que eu li:</h3>
 
-        const attackOsc = audioCtx.createOscillator();
-        const attackGain = audioCtx.createGain();
-        attackOsc.type = "sine";
-        attackOsc.frequency.setValueAtTime(1320,now);
-        attackGain.gain.setValueAtTime(0,now);
-        attackGain.gain.linearRampToValueAtTime(1,now + 0.01);
-        attackGain.gain.exponentialRampToValueAtTime(0.001,now + 0.2);
+      <img class="readedBook" src="books/01.jpg">
+      <img class="readedBook" src="books/02.jpg">
+      <img class="readedBook" src="books/03.jpg">
+      <img class="readedBook" src="books/04.jpg">
+      <img class="readedBook" src="books/05.jpg">
+      <img class="readedBook" src="books/06.jpg">
+      <img class="readedBook" src="books/07.jpg">
 
-        attackOsc.connect(attackGain);
-        attackGain.connect(audioCtx.destination);
-
-        const sustainOsc = audioCtx.createOscillator();
-        const sustainGain = audioCtx.createGain();
-        sustainOsc.type = "sine";
-        sustainOsc.frequency.setValueAtTime(440,now + 0.2);
-        sustainGain.gain.setValueAtTime(0,now);
-        sustainGain.gain.linearRampToValueAtTime(0.5,now + 0.2);
-        sustainGain.gain.exponentialRampToValueAtTime(0.001,now + 1.2);
-
-        sustainOsc.connect(sustainGain);
-        sustainGain.connect(audioCtx.destination);
-
-        attackOsc.start(now);
-        sustainOsc.start(now + 0.2);
-
-        attackOsc.stop(now + 0.2);
-        sustainOsc.stop(now + 1.2);
-      }
-
-      document.querySelector("#Bible").addEventListener("click",playBell);
-
-    </script>
-  </body>
+      <!-- <img class="languageIcon" src="html.svg" title="html">
+      <img class="languageIcon" src="css.svg" title="css">
+      <img class="languageIcon" src="javascript.svg" title="javascript">
+      <img class="languageIcon" src="typescript.svg" title="typescript">
+      <img class="languageIcon" src="react.svg" title="react">
+      <img class="languageIcon" src="php.svg" title="php">
+      <img class="languageIcon" src="mysql.svg" title="mysql">
+      <img class="languageIcon" src="postgres.svg" title="postgres">
+      <br>
+      <img class="languageIcon" src="c.svg" title="c">
+      <img class="languageIcon" src="cpp.svg" title="c++">
+      <img class="languageIcon" src="java.svg" title="java">
+      <img class="languageIcon" src="python.svg" title="python">
+      <img class="languageIcon" src="lua.svg" title="lua">
+      <br>
+      <img class="languageIcon" src="git.svg" title="git">
+      <img class="languageIcon" src="cmake.svg" title="cmake">
+      <img class="languageIcon" src="regex.svg" title="regex">
+      <img class="languageIcon" src="markdown.svg" title="markdown">
+      <img class="languageIcon" src="latex.svg" title="latex"> -->
+   </section>
+</body>
 </html>

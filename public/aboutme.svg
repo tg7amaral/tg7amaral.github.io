@@ -1,0 +1,55 @@
+<svg viewBox="10 -40 300 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00FF77;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#009955;stop-opacity:1" />
+    </linearGradient>
+    <filter id="gooey">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+      <feColorMatrix in="blur" mode="matrix" 
+        values="1 0 0 0 0  
+                0 1 0 0 0  
+                0 0 1 0 0  
+                0 0 0 20 -10" result="gooey" />
+      <feBlend in="SourceGraphic" in2="gooey" />
+    </filter>
+    <filter id="blurFilter">
+      <feGaussianBlur stdDeviation="1" />
+    </filter>
+  </defs>
+
+  <!-- Central Organic Shape with Animation -->
+  <path d="M150,50 Q200,0 250,50 T300,150 Q250,200 200,150 T100,200 Q50,150 100,100 Z" 
+        fill="url(#grad1)" filter="url(#gooey)">
+    <animateTransform attributeName="transform" attributeType="XML" type="translate" 
+                      values="0,0; 0,-10; 0,0; 0,10; 0,0" dur="6s" repeatCount="indefinite" />
+  </path>
+
+  <!-- Floating Blobs with Animation -->
+  <circle cx="50" cy="150" r="30" fill="#00FF77" filter="url(#gooey) url(#blurFilter)">
+    <animateTransform attributeName="transform" attributeType="XML" type="translate" 
+                      values="0,0; 5,-5; 0,0; -5,5; 0,0" dur="4s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="220" cy="40" r="20" fill="#00FF77" filter="url(#gooey) url(#blurFilter)">
+    <animateTransform attributeName="transform" attributeType="XML" type="translate" 
+                      values="0,0; -3,3; 0,0; 3,-3; 0,0" dur="5s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="230" cy="180" r="15" fill="#00FF77" filter="url(#gooey) url(#blurFilter)">
+    <animateTransform attributeName="transform" attributeType="XML" type="translate" 
+                      values="0,0; 4,-4; 0,0; -4,4; 0,0" dur="6s" repeatCount="indefinite" />
+  </circle>
+
+  <!-- Small Floating Dots for Texture with Blur and Animation -->
+  <circle cx="260" cy="50" r="7" fill="#00FF77" filter="url(#blurFilter)">
+    <animateTransform attributeName="transform" attributeType="XML" type="translate" 
+                      values="0,0; 0,-5; 0,0; 0,5; 0,0" dur="4s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="230" cy="170" r="5" fill="#00FF77" filter="url(#blurFilter)">
+    <animateTransform attributeName="transform" attributeType="XML" type="translate" 
+                      values="0,0; -2,2; 0,0; 2,-2; 0,0" dur="3s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="130" cy="200" r="6" fill="#00FF77" filter="url(#blurFilter)">
+    <animateTransform attributeName="transform" attributeType="XML" type="translate" 
+                      values="0,0; 2,-2; 0,0; -2,2; 0,0" dur="5s" repeatCount="indefinite" />
+  </circle>
+</svg>
