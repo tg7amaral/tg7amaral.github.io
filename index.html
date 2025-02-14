@@ -15,7 +15,60 @@
    </header>
 
    <h3 class="sobtitle">O melhor...</h3>
-   <h2 class="title">Tiago<br>FXP</h2>
+   <div class="titleContainer">
+      <h2 class="title">Tiago<br>FXP</h2>
+      <svg class="titleImage" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Definição do efeito luminoso -->
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Primeira linha -->
+        <path d="M 200 95 C 160 85, 120 65, 60 75 S 0 45, 200 15" 
+              stroke="#FF0035" 
+              stroke-width="3" 
+              fill="none" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"
+              stroke-dasharray="100"
+              stroke-dashoffset="0"
+              filter="url(#glow)">
+          <animate attributeName="stroke-dashoffset" from="0" to="200" dur="3s" repeatCount="indefinite"/>
+        </path>
+
+        <!-- Segunda linha -->
+        <path d="M 200 75 C 160 65, 120 50, 60 60 S 0 35, 200 5" 
+              stroke="#FF0035" 
+              stroke-width="3" 
+              fill="none" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"
+              stroke-dasharray="100"
+              stroke-dashoffset="0"
+              filter="url(#glow)">
+          <animate attributeName="stroke-dashoffset" from="0" to="200" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+        </path>
+
+        <!-- Terceira linha -->
+        <path d="M 200 85 C 160 75, 120 55, 60 65 S 0 40, 200 10" 
+              stroke="#FF0035" 
+              stroke-width="3" 
+              fill="none" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"
+              stroke-dasharray="100"
+              stroke-dashoffset="0"
+              filter="url(#glow)">
+          <animate attributeName="stroke-dashoffset" from="0" to="200" dur="3s" begin="1s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+   </div>
 
    <p class="subtitle">O mais <span class="whiteText">estudioso</span> de SD, cheio de ódio &#128548;</p>
 
