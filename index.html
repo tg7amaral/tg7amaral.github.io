@@ -6,75 +6,181 @@
 
    <link rel="stylesheet" href="stylize.css">
 
-   <title>(Nome)</title>
+   <title>TGNael</title>
 </head>
 <body>
    <header>
-      <h1 class="headerTitle">TGNael</h1>
-      <img class="headerIcon" src="public/mainIcon.png">
+      <h1 class="headerTitle">TGNael <span class="headerTitleLabel">FXP</span></h1>
    </header>
 
-   <h3 class="sobtitle">O melhor...</h3>
-   <div class="titleContainer">
-      <h2 class="title">Tiago<br>FXP</h2>
-      <svg class="titleImage" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- Definição do efeito luminoso -->
-        <defs>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
+   <h3 class="title">O melhor, cheio de ódio, <span class="titleBlue">Tiago</span></h3>
 
-        <!-- Primeira linha -->
-        <path d="M 200 95 C 160 85, 120 65, 60 75 S 0 45, 200 15" 
-              stroke="#FF0035" 
-              stroke-width="3" 
-              fill="none" 
-              stroke-linecap="round" 
-              stroke-linejoin="round"
-              stroke-dasharray="100"
-              stroke-dashoffset="0"
-              filter="url(#glow)">
-          <animate attributeName="stroke-dashoffset" from="0" to="200" dur="3s" repeatCount="indefinite"/>
-        </path>
+   <script type="text/javascript">
+       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const canvas = document.createElement("canvas");
+document.body.appendChild(canvas);
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = 300;
+canvas.style.position = "absolute";
+canvas.style.top = "70px";
+canvas.style.left = "0";
+canvas.style.pointerEvents = "none";
+canvas.style.background = "transparent";
 
-        <!-- Segunda linha -->
-        <path d="M 200 75 C 160 65, 120 50, 60 60 S 0 35, 200 5" 
-              stroke="#FF0035" 
-              stroke-width="3" 
-              fill="none" 
-              stroke-linecap="round" 
-              stroke-linejoin="round"
-              stroke-dasharray="100"
-              stroke-dashoffset="0"
-              filter="url(#glow)">
-          <animate attributeName="stroke-dashoffset" from="0" to="200" dur="3s" begin="0.5s" repeatCount="indefinite"/>
-        </path>
+const audio = new Audio("music.m4a"); // Nome do arquivo atualizado
+const source = audioContext.createMediaElementSource(audio);
+const analyser = audioContext.createAnalyser();
+analyser.fftSize = 256;
+source.connect(analyser);
+analyser.connect(audioContext.destination);
 
-        <!-- Terceira linha -->
-        <path d="M 200 85 C 160 75, 120 55, 60 65 S 0 40, 200 10" 
-              stroke="#FF0035" 
-              stroke-width="3" 
-              fill="none" 
-              stroke-linecap="round" 
-              stroke-linejoin="round"
-              stroke-dasharray="100"
-              stroke-dashoffset="0"
-              filter="url(#glow)">
-          <animate attributeName="stroke-dashoffset" from="0" to="200" dur="3s" begin="1s" repeatCount="indefinite"/>
-        </path>
-      </svg>
-   </div>
+const bufferLength = analyser.frequencyBinCount;
+const dataArray = new Uint8Array(bufferLength);
 
-   <p class="subtitle">O mais <span class="whiteText">estudioso</span> de SD, cheio de ódio &#128548;</p>
+function drawWave() {
+    requestAnimationFrame(drawWave);
+    analyser.getByteFrequencyData(dataArray);
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Desenhando a grade com gradiente nas bordas verticais
+    let fadeGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    fadeGradient.addColorStop(0, "transparent");
+    fadeGradient.addColorStop(0.5, "#CCCCFF");
+    fadeGradient.addColorStop(1, "transparent");
+    ctx.strokeStyle = fadeGradient;
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x < canvas.width; x += 20) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    }
+    for (let y = 0; y < canvas.height; y += 20) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }
+    
+    ctx.beginPath();
+    ctx.strokeStyle = "#0055FF";
+    ctx.lineWidth = 2;
+    
+    let sliceWidth = canvas.width / bufferLength;
+    let x = 0;
+    
+    let wavePoints = [];
+    for (let i = 0; i < bufferLength / 4; i++) { // Pegamos apenas os graves
+        let v = dataArray[i] / 255;
+        let y = canvas.height / 2 + (v * canvas.height / 2);
+        wavePoints.push({ x, y });
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+        x += sliceWidth * 4;
+    }
+    ctx.stroke();
+    
+    // Criando gradiente de cima para baixo apenas embaixo das linhas
+    let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, "#0055FF");
+    gradient.addColorStop(1, "transparent");
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.moveTo(wavePoints[0].x, wavePoints[0].y);
+    for (let point of wavePoints) {
+        ctx.lineTo(point.x, point.y);
+    }
+    ctx.lineTo(wavePoints[wavePoints.length - 1].x, canvas.height);
+    ctx.lineTo(wavePoints[0].x, canvas.height);
+    ctx.closePath();
+    ctx.fill();
+}
 
-   <p class="text">"É que essas vadia não vale a gota do meu suor". O pior aluno, mas nunca o pior estudante. Geral critíca, mas ninguém faz melhor</p>
+const controls = document.createElement("div");
+controls.style.position = "absolute";
+controls.style.top = "370px";
+controls.style.left = "50%";
+controls.style.transform = "translate(-50%, 0)";
+controls.style.background = "none";
+controls.style.padding = "0px";
+controls.style.borderRadius = "8px";
+controls.style.display = "flex";
+controls.style.alignItems = "center";
+controls.style.gap = "10px";
 
-   <button class="button firstButton"><img src="public/Instagram.png" class="buttonIcon"><a href="https://Instagram.com/tgnael" target="_blank">Instagram</a></button>
-   <button class="button"><img src="public/Github.png" class="buttonIcon"><a  href="https://github.com/tgnael" target="_blank">Github</a></button>
+document.body.appendChild(controls);
+
+const playPauseButton = document.createElement("button");
+playPauseButton.textContent = "▶";
+playPauseButton.style.background = "transparent";
+playPauseButton.style.border = "none";
+playPauseButton.style.padding = "0px";
+playPauseButton.style.width = "30px";
+playPauseButton.style.lineHeight = "30px";
+playPauseButton.style.fontSize = "14px";
+playPauseButton.style.height = "30px";
+playPauseButton.style.borderRadius = "50%";
+playPauseButton.style.cursor = "pointer";
+playPauseButton.style.color = "#0055FF";
+playPauseButton.onclick = () => {
+    if (audio.paused) {
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+        audio.play();
+        drawWave();
+        playPauseButton.textContent = "⏸";
+    } else {
+        audio.pause();
+        playPauseButton.textContent = "▶";
+    }
+};
+
+const progressBar = document.createElement("input");
+progressBar.type = "range";
+progressBar.min = "0";
+progressBar.max = "100";
+progressBar.value = "0";
+progressBar.style.width = "200px";
+progressBar.style.cursor = "pointer";
+progressBar.style.background = "#0055FF";
+progressBar.style.border = "none";
+progressBar.style.borderRadius = "5px";
+progressBar.style.height = "5px";
+progressBar.style.accentColor = "#0055FF";
+progressBar.oninput = () => {
+    let newTime = (progressBar.value / 100) * audio.duration;
+    if (!isNaN(newTime)) {
+        audio.currentTime = newTime;
+    }
+};
+
+audio.addEventListener("timeupdate", () => {
+    progressBar.value = (audio.currentTime / audio.duration) * 100;
+    timeDisplay.textContent = formatTime(audio.currentTime);
+});
+
+const timeDisplay = document.createElement("span");
+timeDisplay.style.color = "#0055FF";
+timeDisplay.style.fontFamily = "Arial, sans-serif";
+timeDisplay.style.fontSize = "14px";
+timeDisplay.textContent = "0:00";
+
+function formatTime(seconds) {
+    let min = Math.floor(seconds / 60);
+    let sec = Math.floor(seconds % 60);
+    return `${min}:${sec < 10 ? "0" + sec : sec}`;
+}
+
+controls.appendChild(playPauseButton);
+controls.appendChild(progressBar);
+controls.appendChild(timeDisplay);
+
+   </script>
 </body>
 </html>
