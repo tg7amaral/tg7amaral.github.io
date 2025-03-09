@@ -16,7 +16,7 @@
    <h3 class="title">O melhor, cheio de ódio, <span class="titleBlue">Tiago</span></h3>
 
    <div class="audio-player">
-  <audio src="music.m4a"></audio>
+  <audio src="music.mp3"></audio>
   <div class="controls">
     <button class="player-button">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#0055FF">
@@ -140,6 +140,10 @@ const playerButton = document.querySelector('.player-button'),
 let audioContext;
 let source; let analyser;let bufferLength;let dataArray;
 
+document.addEventListener("DOMContentLoaded", function () {
+    //changeSeek();
+});
+
 function toggleAudio () {
 if (audio.paused) {
     audio.play();
@@ -193,6 +197,9 @@ function toggleSound () {
 
 soundButton.addEventListener('click', toggleSound);
 drawGrid();
+
+timeline.value = 47;
+    changeSeek();
 
    </script>
 </body>
