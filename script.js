@@ -340,8 +340,26 @@ function initMusic() {
     document.querySelector("#cover").appendChild(coverCanvas);
 
     let cctx = coverCanvas.getContext("2d");
+    cctx.imageSmoothingEnabled = false;
 
     const VELOCITY = 15; // Velocidade da animação
+    
+    // Configurações para o efeito de ondas
+    const WAVE_HEIGHT = 30; // Altura base das ondas (50px)
+    const WAVE_COLOR = "#0055FF"; // Cor azul específica
+    const WAVE_SEGMENTS = 50; // Segmentos para ondas suaves
+    const BASS_MULTIPLIER = 3.0; // Ajustado para ser menos intenso que antes
+    const WAVE_SPEED = 1.0; // Velocidade de animação das ondas
+    
+    // Buffer para análise de frequência
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    
+    // Inicializa pontos da onda para animação mais suave
+    let wavePoints = Array(WAVE_SEGMENTS + 1).fill(0);
+    
+    // Histórico de resposta aos graves para efeito pulsante
+    let bassPulse = 0;
 
     // 🔥 Lista de frases com tempos de início (start) e fim (end)
     let lyrics = [
@@ -353,21 +371,147 @@ function initMusic() {
         { text: "ondas te guiem", start: 4, end: 6, y: 310 },
         { text: "Em minha vida", start: 5, end: 6, y: 350 },
 
-        { text: "Segue a", start: 6, end: 11, y: 90 },
-        { text: "Correnteza", start: 6.5, end: 11, y: 130 },
-        { text: "Senão me", start: 7, end: 11, y: 170 },
-        { text: "complica", start: 7.5, end: 11, y: 210 },
-        { text: "Menina veneno", start: 9, end: 11, y: 270 },
-        { text: "Você já sabia", start: 10, end: 11, y: 310 },
+        { text: "Segue a", start: 6, end: 11.5, y: 90 },
+        { text: "Correnteza", start: 6.5, end: 11.5, y: 130 },
+        { text: "Senão me", start: 7, end: 11.5, y: 170 },
+        { text: "complica", start: 7.5, end: 11.5, y: 210 },
+        { text: "Menina veneno", start: 9, end: 11.5, y: 270 },
+        { text: "Você já sabia", start: 10, end: 11.5, y: 310 },
+
+        { text: "Debaixo da", start: 11.5, end: 17,y: 90 },
+        { text: "chuva, sobre o", start: 12, end: 17, y: 130 },
+        { text: "brilho da lua", start: 13, end: 17, y: 170 },
+        { text: "Meu coração é", start: 14, end: 17, y: 230 },
+        { text: "seu e minha", start: 15, end: 17, y: 270 },
+        { text: "vida é sua", start: 16, end: 17, y: 310 },
+
+        { text: "Eu não mereço", start: 17, end: 25, y: 90 },
+        { text: "nada, mas você", start: 17.5, end: 25, y: 130 },
+        { text: "me deu tudo", start: 18.5,end: 25, y: 170 },
+        { text: "Você é meu mar", start: 19.5,end: 25, y: 230 },
+        { text: "Você é meu mundo", start: 21,end: 25, y: 270 },
     ];
 
     // 🔵 Palavras que devem ser destacadas em azul
-    const highlightedWords = ["veneno", "calmaria", "ondas","vida","Correnteza","Menina"];
+    const highlightedWords = ["veneno", "calmaria", "ondas","vida","Correnteza","Menina","chuva,","lua","coração","tudo","mar","mundo"];
 
     let revealedLetters = lyrics.map(() => 0);
 
+    const BASS_THRESHOLD = 0.5;  // Somente ativa se o grave for maior que 25% da escala
+    const BASS_SENSITIVITY = 5; // Ajusta a curva de resposta
+
+  function drawWaves() {
+      analyser.getByteFrequencyData(dataArray);
+
+      let bassSum = 0;
+      const bassRange = 8; // Considera apenas as primeiras frequências
+      for (let i = 0; i < bassRange; i++) {
+          bassSum += dataArray[i];
+      }
+      let bassIntensity = bassSum / (bassRange * 255); // Normaliza entre 0 e 1
+
+      if (bassIntensity > 0.8) { // Só vibra se o grave for muito forte
+        navigator.vibrate(200);
+      }
+
+      // **Ajuste para enfatizar apenas os graves mais fortes**
+      bassIntensity = Math.pow(bassIntensity, BASS_SENSITIVITY);
+
+      // **Filtro de limiar para evitar ativação em baixos volumes**
+      if (bassIntensity < BASS_THRESHOLD) {
+          bassIntensity = 0; // Bloqueia o efeito se estiver abaixo do limite
+      }
+
+      const bassResponse = bassIntensity * BASS_MULTIPLIER;
+
+      bassPulse = bassPulse * 0.85 + bassResponse * 0.15; // Suavização
+        
+        // Posição Y base das ondas (parte inferior do canvas - altura das ondas)
+        const baseY = coverCanvas.height - WAVE_HEIGHT;
+        
+        // Fator de tempo para animação contínua
+        const time = Date.now() / 1000;
+        
+        // Primeiro, desenhar o glow das ondas
+        cctx.beginPath();
+        cctx.moveTo(0, coverCanvas.height);
+        
+        for (let i = 0; i <= WAVE_SEGMENTS; i++) {
+            const x = i * (coverCanvas.width / WAVE_SEGMENTS);
+            cctx.lineTo(x, wavePoints[i]);
+        }
+        
+        cctx.lineTo(coverCanvas.width, coverCanvas.height);
+        cctx.closePath();
+        
+        // Aplicar blur para o efeito glow
+        cctx.shadowColor = "#0055FF77";
+        cctx.shadowBlur = 5 + bassResponse * 4; // Glow varia sutilmente com os graves
+        cctx.shadowOffsetX = 0;
+        cctx.shadowOffsetY = 0;
+        
+        // Desenhar as ondas
+        cctx.beginPath();
+        
+        // Começa no canto inferior esquerdo
+        cctx.moveTo(0, coverCanvas.height);
+        
+        // Atualizar pontos da onda com suavização para movimento contínuo
+        for (let i = 0; i <= WAVE_SEGMENTS; i++) {
+            // Determinar nova altura baseada na frequência
+            const frequencyBin = Math.floor(i / WAVE_SEGMENTS * 30);
+            const frequencyValue = dataArray[frequencyBin] / 255;
+            
+            // Variação baseada na posição - mais movimento no centro
+            const positionFactor = 1 - Math.abs((i / WAVE_SEGMENTS) - 0.5) * 1.8; // 0.1 nas bordas, 1 no centro
+            
+            // Calcular nova altura da onda
+            // Base de movimento fluido
+            const baseWave = Math.sin(i / 8 + time * WAVE_SPEED) * 0.5 + 
+                           Math.sin(i / 4 - time * WAVE_SPEED * 0.7) * 0.3;
+            
+            // Calcular efeito de picos quando os graves são fortes (mais moderado)
+            const bassPeak = Math.sin(i / 5 + time * (3 + bassPulse)) * bassResponse * 20 * positionFactor;
+            
+            // Altura total da onda - combina movimento padrão com resposta aos graves
+            let targetHeight = baseY + baseWave * 10 + bassPeak;
+            
+            // Adicionar deformação extra baseada diretamente na frequência atual
+            targetHeight += frequencyValue * bassResponse * 12;
+            
+            // Suavizar transição entre frames
+            wavePoints[i] = wavePoints[i] * 0.65 + targetHeight * 0.35;
+            
+            // Desenhar ponto da onda
+            const x = i * (coverCanvas.width / WAVE_SEGMENTS);
+            cctx.lineTo(x, wavePoints[i]);
+        }
+        
+        // Completar o caminho até o canto inferior direito
+        cctx.lineTo(coverCanvas.width, coverCanvas.height);
+        cctx.closePath();
+        
+        // Criar gradiente com variação de transparência
+        const gradient = cctx.createLinearGradient(0, baseY - 15 * bassPulse, 0, coverCanvas.height);
+        
+        // Manter a cor consistente, variando apenas a transparência
+        gradient.addColorStop(0, `rgba(0, 85, 255, 1)`);
+        gradient.addColorStop(1, `rgba(0, 85, 255, 1)`);
+        
+        cctx.fillStyle = gradient;
+        cctx.fill();
+        
+        // Resetar as propriedades de sombra após desenhar as ondas
+        cctx.shadowBlur = 0;
+    }
+
     function drawLyrics() {
         cctx.clearRect(0, 0, coverCanvas.width, coverCanvas.height);
+        
+        // Desenhar as ondas primeiro
+        drawWaves();
+        
+        // Desenhar as letras da música em seguida
         cctx.font = "bold 35px monospace";
 
         let currentTime = audio.currentTime;
@@ -393,7 +537,16 @@ function initMusic() {
                             return;
                         }
 
-                        cctx.fillStyle = isHighlighted ? "#0055FF" : "#FFFFFF";
+                        // Adicionar glow para palavras destacadas em azul
+                        if (isHighlighted) {
+                            cctx.shadowColor = "#0055FF77";
+                            cctx.shadowBlur = 5;
+                            cctx.fillStyle = "#0055FF";
+                        } else {
+                            cctx.shadowBlur = 0;
+                            cctx.fillStyle = "#FFFFFF";
+                        }
+                        
                         cctx.fillText(word[i], x, line.y);
                         x += cctx.measureText(word[i]).width;
                         lettersRendered++;
@@ -415,4 +568,22 @@ function initMusic() {
     });
 
     audio.play();
+
+    audio.addEventListener("ended", () => {
+      let opacity = 1;
+      let interval = setInterval(function(){
+        opacity -= 0.05;
+        document.querySelector("#cover").style.opacity = opacity;
+
+        if(opacity <= 0){
+          document.querySelector("#cover").remove();
+          clearInterval(interval);
+        }
+      },100)
+
+      audio.src = "musicVibe.mp3"; // Define o novo áudio
+      audio.loop = true; // Faz o segundo tocar em loop
+      audio.play(); // Toca automaticamente
+      audio.volume = 0.3; // Volume
+    });
 }
