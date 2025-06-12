@@ -19,19 +19,19 @@ function renderPage(letterIndex){
       <header>
         <img src="heart.svg" class="heartPulse">
         <img src="heart.svg" class="heart">
-        <button>À <span class="titleLabel">Fulana</span></button>
+        <button>À <span class="titleLabel">Nicoly</span></button>
 
         <audio id="music" src="music.mp3" style="display:none"></audio>
       </header>
 
       <section id="cover">
         <button class="openInvite">Clique para abrir o convite</button>
-        <button class="author">@tgnael</button>
+        <button class="author">@tg7amaral</button>
       </section>
 
       <canvas id="waterCanvas"></canvas>
-      <h1 class="titleCanvas">Você aceita sair comigo?</h1>
-      <p class="textCanvas">Data:&nbsp;&nbsp;Na que der para você<br>Horário: No que você quiser</p>
+      <h1 class="titleCanvas">Você aceita namorar comigo?</h1>
+      <p class="textCanvas">Para ninguém passar o dia<br>dos namorados sozinho</p>
 
       <canvas id="confetti"></canvas>
 
@@ -305,7 +305,7 @@ function yes(){
         // Reset button so user can select it again
         disabled = false;
 
-        window.location.href = `instagram://user?username=${encodeURIComponent("tgnael")}`;
+        window.location.href = `instagram://user?username=${encodeURIComponent("tg7amaral")}`;
       }, 3000)
     }, 300)
 }
