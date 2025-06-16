@@ -1,16 +1,181 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="theme-color" content="#0055FF">
-
-	<link rel="icon" href="heart.svg">
-	<link rel="stylesheet" type="text/css" href="stylize.css">
-
-	<title>À Nicoly</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
 </head>
 <body>
-	<script src="script.js"></script>
+  <canvas id="smokeCanvas"></canvas>
+  <img id="mainImage" src="mainImage.png">
+  <h1>TG7<br>AMARAL</h1>
+  <p>Neste mundo vocês terão aflições; porém, tenham ânimo! Eu venci o mundo</p>
+  <style type="text/css">
+    body{
+      background:#101010;
+      position:absolute;
+      width:100%;height:100%;
+
+      padding:0px;margin:0px;
+      left:0px;top:0px;
+
+      font-size:0px;
+    }
+
+    canvas{
+      width:100%;height:100%;
+      position:absolute;
+      z-index:2;
+
+      padding:0px;margin:0px;
+      left:0px;top:0px;
+    }
+
+    #mainImage{
+      width:100%;height:auto;
+      position:absolute;
+      left:0%;bottom:-50px;
+
+      background:none;
+      filter:drop-shadow(0px 0px 5px #FFFFFF40);
+
+      z-index:1;
+    }
+    h1{
+      width:100%;height:140px;
+      position:absolute;
+      left:0%;top:25px;
+
+      background:none;
+      z-index:2;
+
+      font-family:Arial;
+      text-align:center;
+      color:#FFFFFF;
+      font-size:70px;
+      line-height:70px;
+      font-weight:1000;
+
+      margin:0px;padding:0px;
+    }
+
+    p{
+      width:100%;height:auto;
+      position:absolute;
+      left:0%;top:190px;
+
+      background:none;
+      z-index:2;
+
+      font-family:Arial;
+      text-align:center;
+      color:#FFFFFF;
+      font-size:16px;
+      font-weight:normal;
+
+      margin:0px;padding:0px 20px 0px 20px;
+      box-sizing:border-box;
+    }
+  </style>
+  <script>
+    "use strict";
+
+const MAX_PARTICLES = 2000;
+const PARTICLE_LIFESPAN_DECAY = 0.005;
+const PARTICLE_RADIUS_GROWTH = 0.2;
+const PARTICLE_INITIAL_RADIUS_MIN = 15;
+const PARTICLE_INITIAL_RADIUS_MAX = 50;
+const PARTICLE_SPEED_RANGE = 1;
+const PARTICLE_UPWARDS_BIAS = -1; 
+const FRAME_RATE_LIMIT = 60;
+
+class Particle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+    this.radius =
+      Math.random() *
+        (PARTICLE_INITIAL_RADIUS_MAX - PARTICLE_INITIAL_RADIUS_MIN) +
+      PARTICLE_INITIAL_RADIUS_MIN;
+
+    this.vx = (Math.random() - 0.5) * PARTICLE_SPEED_RANGE;
+    this.vy =
+      (Math.random() - 0.5) * PARTICLE_SPEED_RANGE + PARTICLE_UPWARDS_BIAS;
+
+    this.life = Math.random() * 0.5 + 0.5; 
+    this.opacity = Math.random() * 0.4 + 0.2; 
+  }
+
+  update(ctx) {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life -= PARTICLE_LIFESPAN_DECAY;
+    this.radius += PARTICLE_RADIUS_GROWTH;
+    if (this.life <= 0) return false;
+    const gradient = ctx.createRadialGradient(
+      this.x,
+      this.y,
+      0,
+      this.x,
+      this.y,
+      this.radius
+    );
+    gradient.addColorStop(0, `rgba(0, 85, 255, ${this.opacity})`);
+    gradient.addColorStop(1, "rgba(0, 85, 255, 0)");
+
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    return true;
+  }
+}
+
+const canvas = document.getElementById("smokeCanvas");
+const ctx = canvas.getContext("2d", { alpha: true });
+let particles = [];
+
+const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+function handleResize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function createParticle(x, y) {
+  return new Particle(x, y);
+}
+
+function generateParticles() {
+  if (particles.length < MAX_PARTICLES) {
+    particles.push(createParticle(Math.random() * window.innerWidth,window.innerHeight + 25 - Math.random() * 50));
+  }
+}
+
+function updateParticles() {
+  particles = particles.filter((particle) => {
+    return particle.update(ctx);
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  generateParticles();
+  updateParticles();
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener("mousemove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+window.addEventListener("resize", handleResize);
+
+handleResize();
+animate();
+  </script>
 </body>
 </html>
