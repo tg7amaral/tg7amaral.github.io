@@ -7,12 +7,12 @@
 </head>
 <body>
   <canvas id="smokeCanvas"></canvas>
-  <img id="mainImage" src="mainImage.png">
+  <img id="mainImage" src="background.jpg">
   <h1>TG7<br>AMARAL</h1>
-  <p>Neste mundo vocês terão aflições; porém, tenham ânimo! Eu venci o mundo</p>
+  <p>E conhecereis a verdade, e a verdade vos libertará<br>João 8:32</p>
   <style type="text/css">
     body{
-      background:#101010;
+      background:#0b0b0b;
       position:absolute;
       width:100%;height:100%;
 
@@ -34,10 +34,9 @@
     #mainImage{
       width:100%;height:auto;
       position:absolute;
-      left:0%;bottom:-50px;
+      left:0%;top:0%;
 
       background:none;
-      filter:drop-shadow(0px 0px 5px #FFFFFF40);
 
       z-index:1;
     }
@@ -109,7 +108,7 @@ class Particle {
 
   update(ctx) {
     this.x += this.vx;
-    this.y += this.vy;
+    this.y -= this.vy;
     this.life -= PARTICLE_LIFESPAN_DECAY;
     this.radius += PARTICLE_RADIUS_GROWTH;
     if (this.life <= 0) return false;
@@ -121,8 +120,8 @@ class Particle {
       this.y,
       this.radius
     );
-    gradient.addColorStop(0, `rgba(0, 85, 255, ${this.opacity})`);
-    gradient.addColorStop(1, "rgba(0, 85, 255, 0)");
+    gradient.addColorStop(0, `rgba(255,0, 25, ${this.opacity})`);
+    gradient.addColorStop(1, "rgba(255,0, 25, 0)");
 
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -150,7 +149,7 @@ function createParticle(x, y) {
 
 function generateParticles() {
   if (particles.length < MAX_PARTICLES) {
-    particles.push(createParticle(Math.random() * window.innerWidth,window.innerHeight + 25 - Math.random() * 50));
+    particles.push(createParticle(Math.random() * window.innerWidth,(Math.random() * 20) - 20));
   }
 }
 
